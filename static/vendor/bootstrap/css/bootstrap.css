@@ -597,9 +597,19 @@ progress {
   content: "— ";
 }
 
+.img-fluid-special {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  /* border-radius: 50%; */
+  height: 300px;
+  width: 300px;
+  box-shadow: 10px 5px 5px #cda45e;
+}
 .img-fluid {
   max-width: 100%;
   height: auto;
+ 
 }
 
 .img-thumbnail {
