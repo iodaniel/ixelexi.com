@@ -3,9 +3,6 @@
 {% load static %}
 {% block body %}
 
-
-
-
 {% if user.is_authenticated %}
 <h1 class="text-center  mt-3">Online Booking</h1>
 
@@ -17,10 +14,10 @@
         <div>
             <h3 class="">Select Service:</h3>
             <select class="form-select fs-3" name="service">
-                <option value="Doctor care">Doctor care</option>
-                <option value="Nursing care">Nursing care</option>
-                <option value="Medical social services">Medical social services</option>
-                <option value="Homemaker or basic assistance care">Homemaker or basic assistance care</option>
+                <option value="HIFU Face">HIFU Face</option>
+                <option value="HIFU Body">HIFU Body</option>
+                <option value="HIFU Vagin">HIFU Vagin</option>
+               
             </select>
         </div>
             <!--input day-->
@@ -34,7 +31,7 @@
             </div>
 
             <br/>
-            <button type="submit" class="btn btn-primary text-white">Continue</button>
+            <button type="submit" class="btn text-black" style="background-color:#cda45e">Continue</button>
         </div>
     </form>
 </div>
@@ -43,7 +40,8 @@
 
 <div class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 ">
     <h1 class="p-2  me-3">You Are Not Signed in!</h1>
-    <a href="{% url 'register' %}" class="btn btn-primary shadow text-center">Sign in</a>
+    <a href="{% url 'login' %}" class="btn btn-primary shadow text-center">Sign in</a>
+    <a href="{% url 'register' %}" class="btn btn-warning  shadow text-center">Create Account</a>
 </div>
 
 {% endif %}

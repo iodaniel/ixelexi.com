@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-    'booking'
+    'booking',
     # 'crispy_forms',
     # 'doctor',
     # 'hospital',
@@ -128,7 +128,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-DEFAULT_AUTO_FIELD = 'django.db.model.BigAutoField'
+# DEFAULT_AUTO_FIELD = 'django.db.model.BigAutoField'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_TMP = os.path.join(BASE_DIR, 'staticfiles')

@@ -1,129 +1,140 @@
-from django.shortcuts import render, redirect 
+from django.shortcuts import render, redirect
 from datetime import datetime, timedelta
 from .models import *
 from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render
+
+def is_superuser(user):
+    return user.is_superuser
+
 
 def index(request):
-    return render(request, 'index.html',{
-        
-    })
+    return render(request, "index.html",{})
 
-# Create your views here.
 def booking(request):
+    #Calling 'validWeekday' Function to Loop days you want in the next 21 days:
     weekdays = validWeekday(22)
-    validateWeekdays = isWeekdayValid(weekdays)
 
-    if request.method=='POST':
+    #Only show the days that are not full:
+    validateWeekdays = isWeekdayValid(weekdays)
+    
+
+    if request.method == 'POST':
         service = request.POST.get('service')
         day = request.POST.get('day')
         if service == None:
-            messages.success(request, "Please Select a Service!")
+            messages.success(request, "Please Select A Service!")
             return redirect('booking')
 
-        request.session['day']= day
-        request.session['serivce']= service
+        #Store day and service in django session:
+        request.session['day'] = day
+        request.session['service'] = service
 
         return redirect('bookingSubmit')
 
+
     return render(request, 'booking.html', {
-        'weekdays':weekdays,
-        'validateWeekdays':validateWeekdays,
-    
-    
-    })
+            'weekdays':weekdays,
+            'validateWeekdays':validateWeekdays,
+        })
+
 def bookingSubmit(request):
     user = request.user
-    time= [
-        "10:00 AM",  "11:00 AM", "12:00 PM", "1:00 PM", "3:00 PM",
-"4:00 PM", "5:00 PM", "6:00 PM"
-
+    times = [
+        "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "3:00 PM", "4:00 PM", "5:00 PM","6:00 PM"
     ]
     today = datetime.now()
-    minDate = today.strftime("%Y-%m-%d")
+    minDate = today.strftime('%Y-%m-%d')
     deltatime = today + timedelta(days=21)
-    strdeltatime = deltatime.strftime("%Y-%m-%d")
+    strdeltatime = deltatime.strftime('%Y-%m-%d')
     maxDate = strdeltatime
 
+    #Get stored data from django session:
     day = request.session.get('day')
     service = request.session.get('service')
-
-    hour = checkTime(time,day)
-    if request.method =="POST":
+    
+    #Only show the time of the day that has not been selected before:
+    hour = checkTime(times, day)
+    if request.method == 'POST':
         time = request.POST.get("time")
         date = dayToWeekday(day)
 
         if service != None:
             if day <= maxDate and day >= minDate:
-                if date == 'Monday' or date =='Saturday' or date =='Wednesday':
+                if date == 'Monday' or date == 'Tuesday' or date == 'Wednesday' or date == 'Thursday' or date == 'Friday' or date == 'Saturday':
                     if Appointment.objects.filter(day=day).count() < 11:
-                        if Appointment.objects.filter(day=day, time=time).count()<1:
+                        if Appointment.objects.filter(day=day, time=time).count() < 1:
                             AppointmentForm = Appointment.objects.get_or_create(
-                                user= user, 
+                                user = user,
                                 service = service,
-                                day = day, 
+                                day = day,
                                 time = time,
-
-                            ) 
-                            messages.success(request, "Appoinment Saved!")
+                            )
+                            messages.success(request, "Appointment Saved!")
                             return redirect('index')
-
                         else:
-                            messages.success(request, "The selected time has been reserved before for another customer")
+                            messages.success(request, "The Selected Time Has Been Reserved Before!")
                     else:
-                        messages.success(request, "The Selected Day Is Full!!")
-                else: 
-                    messages.success(request, "The Selected Day Is Incorrect")
+                        messages.success(request, "The Selected Day Is Full!")
+                else:
+                    messages.success(request, "The Selected Date Is Incorrect")
             else:
-                messages.success(request, "The selected Date Isn't In The Correct Time Period!")
+                    messages.success(request, "The Selected Date Isn't In The Correct Time Period!")
         else:
             messages.success(request, "Please Select A Service!")
+
 
     return render(request, 'bookingSubmit.html', {
         'times':hour,
     })
-def userPanel(request, id):
-    user = request.user
-    appointments= Appointment.objects.filter(user=user).order_by('day', 'time')
-    return render(request, 'userPanel.html',{
-        'user':user,
-        'appointments': appointments,
 
+def userPanel(request):
+    user = request.user
+    appointments = Appointment.objects.filter(user=user).order_by('day', 'time')
+    return render(request, 'userPanel.html', {
+        'user':user,
+        'appointments':appointments,
     })
 
 def userUpdate(request, id):
     appointment = Appointment.objects.get(pk=id)
     userdatepicked = appointment.day
+    #Copy  booking:
     today = datetime.today()
     minDate = today.strftime('%Y-%m-%d')
 
-    delta24 = (userdatepicked).strftime('%Y-%m-%d')>= (today + timedelta(days=1)).strftime('%Y-%m-%d')
+    #24h if statement in template:
+    delta24 = (userdatepicked).strftime('%Y-%m-%d') >= (today + timedelta(days=1)).strftime('%Y-%m-%d')
+    #Calling 'validWeekday' Function to Loop days you want in the next 21 days:
     weekdays = validWeekday(22)
 
+    #Only show the days that are not full:
     validateWeekdays = isWeekdayValid(weekdays)
+    
 
-    if request.method =="POST":
+    if request.method == 'POST':
         service = request.POST.get('service')
         day = request.POST.get('day')
+
+        #Store day and service in django session:
         request.session['day'] = day
-        request.session['service']= service
+        request.session['service'] = service
 
         return redirect('userUpdateSubmit', id=id)
 
-    return render(request, 'userUpdate.html',{
-        'weekdays':weekdays,
-        'validateWeekdays':validateWeekdays,
-        'delta24': delta24,
-        'id': id, 
 
-
-
-    })
+    return render(request, 'userUpdate.html', {
+            'weekdays':weekdays,
+            'validateWeekdays':validateWeekdays,
+            'delta24': delta24,
+            'id': id,
+        })
 
 def userUpdateSubmit(request, id):
     user = request.user
     times = [
-         "10:00 AM",  "11:00 AM", "12:00 PM", "1:00 PM", "3:00 PM",
-"4:00 PM", "5:00 PM", "6:00 PM"
+      "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "3:00 PM", "4:00 PM", "5:00 PM","6:00 PM"
     ]
     today = datetime.now()
     minDate = today.strftime('%Y-%m-%d')
@@ -144,7 +155,7 @@ def userUpdateSubmit(request, id):
 
         if service != None:
             if day <= maxDate and day >= minDate:
-                if date == 'Monday' or date == 'Tuesday' or date == 'Wednesday' or date == 'Thursday'  or date == 'Friday' or date == 'Saturday' :
+                if date == 'Monday' or date == 'Tuesday' or date == 'Wednesday' or date == 'Thursday' or date == 'Friday' or date == 'Saturday':
                     if Appointment.objects.filter(day=day).count() < 11:
                         if Appointment.objects.filter(day=day, time=time).count() < 1 or userSelectedTime == time:
                             AppointmentForm = Appointment.objects.filter(pk=id).update(
@@ -152,7 +163,6 @@ def userUpdateSubmit(request, id):
                                 service = service,
                                 day = day,
                                 time = time,
-                                
                             ) 
                             messages.success(request, "Appointment Edited!")
                             return redirect('index')
@@ -173,7 +183,7 @@ def userUpdateSubmit(request, id):
         'times':hour,
         'id': id,
     })
-
+@user_passes_test(is_superuser)
 def staffPanel(request):
     today = datetime.today()
     minDate = today.strftime('%Y-%m-%d')
@@ -227,3 +237,12 @@ def checkEditTime(times, day, id):
         if Appointment.objects.filter(day=day, time=k).count() < 1 or time == k:
             x.append(k)
     return x
+    #Only show the time of the day that has not been selected before:
+# def checkEditTime(times, day, id):
+#     x = []
+#     appointment = Appointment.objects.get(pk=id)
+#     time = appointment.time
+#     for k in times:
+#         if Appointment.objects.filter(day=day, time=k).count() < 1 or time == k:
+#             x.append(k)
+#     return x
