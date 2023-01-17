@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from .forms import RegisterUserForm
 from django.core.mail import send_mail
+from .models import Contact
 
 def login_user(request):
     if request.method == "POST":
@@ -44,3 +45,16 @@ def register_user(request):
     return render(request, 'authenticate/register_user.html', {
         'form':form,
     })
+
+
+def ContactView(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+        message = request.POST.get('message')
+
+        contact = Contact(name=name, email=email, phone_number=phone_number, message=message)
+        contact.save()
+        messages.success(request, "Your message was sent successfully!")
+      

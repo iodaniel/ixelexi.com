@@ -447,6 +447,57 @@
           <h2>Schedule</h2>
           <p>Book an appoiments</p>
         </div>
+        <form method="post" class="php-email-form" >
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-lg-4 col-md-6 form-group">
+            <label>Name:</label>
+            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required>
+            <div class="validate"></div>
+          </div>
+             <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+            <label>Email:</label>
+            <input type="email" name="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+            <div class="validate"></div>  
+          </div>
+            <hr>
+            <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+            <label>Phone Number:</label>
+            <input type="text" name="phone_number" class="form-control" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required>
+            <div class="validate"></div>  
+          </div>
+            <div class="form-group mt-3">
+            <label>Message:</label>
+            <textarea name="message" class="form-control"  rows="5" placeholder="Message" required></textarea>
+            <div class="validate"></div>  
+          </div>
+            <div class="text-center"><button type="submit">Book an Appointment</button></div>
+            
+            <!-- <input type="submit" value="Send"> -->
+        </div>
+        </form>
+        </div>
+      </section>
+      <form method="post">
+        {% csrf_token %}
+        <label>Name:</label>
+        <input type="text" name="name" required>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="text" name="phone_number" required>
+        <label>Message:</label>
+        <textarea name="message" required></textarea>
+        <input type="submit" value="Send">
+      </form>
+      {{message}}
+    <!-- <section id="book-a-table" class="book-a-table">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Schedule</h2>
+          <p>Book an appoiments</p>
+        </div>
 
         <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
           <div class="row">
@@ -487,8 +538,10 @@
           <div class="text-center"><button type="submit">Book an Appointment</button></div>
         </form>
 
-      </div>
-    </section><!-- End Book A Table Section -->
+      </div> 
+    </section>
+  -->
+   <!-- End Book A Table Section -->
 
     <!-- ======= Testimonials Section ======= -->
     <!-- <section id="testimonials" class="testimonials section-bg">
