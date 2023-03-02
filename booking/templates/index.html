@@ -123,7 +123,7 @@
           <div class="col-lg-6 menu-item filter-starters">
             <img src="{% static '/img/menu/face.jpg' %}" class="menu-img" alt="">
             <div class="menu-content">
-              <a href="#">Full Face</a><span>$600</span>
+              <a href="#">Full Face</a><span>$800</span>
             </div>
             <div class="menu-ingredients">
               Forehead, Eyes, Cheeks and Chin 
@@ -133,7 +133,7 @@
           <div class="col-lg-6 menu-item filter-specialty">
             <img src="{% static '/img/menu/bread-barrel.jpg' %}" class="menu-img" alt="">
             <div class="menu-content">
-              <a href="#">All menu</a><span>$6.95</span>
+              <a href="#">Cellutis elimination</a><span>$400</span>
             </div>
             <div class="menu-ingredients">
               Lorem, deren, trataro, filede, nerada
@@ -440,7 +440,7 @@
     </section><!-- End Events Section -->
 
     <!-- ======= Book A Table Section ======= -->
-    <section id="book-a-table" class="book-a-table">
+    <!-- <section id="book-a-table" class="book-a-table">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -472,9 +472,9 @@
             <div class="validate"></div>  
           </div>
             <div class="text-center"><button type="submit">Book an Appointment</button></div>
-            
+             -->
             <!-- <input type="submit" value="Send"> -->
-        </div>
+        <!-- </div>
         </form>
         </div>
       </section>
@@ -490,7 +490,7 @@
         <textarea name="message" required></textarea>
         <input type="submit" value="Send">
       </form>
-      {{message}}
+      {{message}} -->
     <!-- <section id="book-a-table" class="book-a-table">
       <div class="container" data-aos="fade-up">
 
@@ -837,7 +837,8 @@
 
           <div class="col-lg-8 mt-5 mt-lg-0">
             
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form method="post" class="">
+              {% csrf_token %}
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
@@ -847,17 +848,13 @@
                 </div>
               </div>
               <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="Phone Number" required>
               </div>
               <div class="form-group mt-3">
                 <textarea class="form-control" name="message" rows="8" placeholder="Message" required></textarea>
               </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
+           <br><br>
+              <div class="text-center"><button type="submit" value="Submit">Send Message</button></div>
             </form>
 
           </div>

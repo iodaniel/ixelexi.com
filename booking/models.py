@@ -6,7 +6,12 @@ from django.contrib.auth.models import User
 SERVICE_CHOICE = (
     ("HIFU Face", "HIFU Face"),
     ("HIFU Body", "HIFU Body"),
-    ("HIFU Vagin", "HIFU Vagin"),
+    ("HIFU Vaginal", "HIFU Vaginal"),
+    ("HIFU 5D Face", "HIFU 5D Face"),
+    ("HIFU Fat Reduction", "HIFU Fat Reduction"),
+    ("Microneedling Face", "Microneedling Face"),
+    ("Microneedling Body", "Microneedling Body"),
+    ("Hydro Facial", "Hydro Facial"),
 )
 
 TIME_CHOICE=(

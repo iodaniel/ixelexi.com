@@ -1,5 +1,5 @@
-runasgiref==3.6.0
-backports.zoneinfo==0.2.1
+#runasgiref==3.6.0
+#backports.zoneinfo==0.2.1
 Django==4.1.4
 sqlparse==0.4.3
 whitenoise==6.2.0

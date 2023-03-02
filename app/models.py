@@ -8,4 +8,4 @@ class Contact(models.Model):
     message = models.TextField()
 
     def __str__(self):
-        return f"{self.name} | day: {self.email} |time:{self.phone_number} | service:{self.message}"
+        return f"{self.name} | email: {self.email} | phone number:{self.phone_number} | message:{self.message}"
