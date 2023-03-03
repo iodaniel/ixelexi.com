@@ -81,6 +81,6 @@ def stripe_webhook(request):
     # Handle the checkout.session.completed event
     if event['type'] == 'checkout.session.completed':
         print("Payment was successful.")
-        # TODO: run some custom code here
+        
 
     return HttpResponse(status=200)
