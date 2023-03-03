@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'ixelexi.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
+#tengo que cambiar esta base de datos a postgres 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
