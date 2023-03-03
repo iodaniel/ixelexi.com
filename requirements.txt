@@ -8,6 +8,7 @@ dbus-python==1.2.18
 distro==1.7.0
 distro-info===1.1build1
 Django==4.1.4
+django-environ==0.10.0
 httplib2==0.20.2
 idna==3.4
 importlib-metadata==4.6.4

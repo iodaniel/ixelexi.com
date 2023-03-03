@@ -1,3 +1,4 @@
+import environ
 import os 
 from pathlib import Path
 
@@ -108,8 +109,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51MSdBfGhB6Kn5glmmHb4SnF4hVP7xQ36a2MSmn2IEP265a7d8YTVzBKXoZTGCTvCqN0mb4xxC5mVaVLMuH80FnSr006wV7ACsM'
-STRIPE_SECRET_KEY = 'sk_test_51MSdBfGhB6Kn5glmRxhR5xnzrgJW4iGscW34snPQa2aRml28RZfRfB2yMmCS3XKBMEM4TVxObCXJnTR5LjOIpN7n0012HAtOG2'
+STRIPE_PUBLISHABLE_KEY = os.environ.get('PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = os.environ.get('SECRET_KEY')
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 

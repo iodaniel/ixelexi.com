@@ -16,7 +16,7 @@ cd [nombre-del-repositorio]
 Crea un entorno virtual para el proyecto:
 bash
 Copy code
-python -m venv env
+python -m env env
 Activa el entorno virtual:
 bash
 Copy code
