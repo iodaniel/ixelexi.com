@@ -8,7 +8,8 @@
         <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
         <h2>test</h2>
         <p class=" text-muted">{{ post.author }} | {{ post.created_at }}</p>
-        <img class="rounded mx-auto d-block" src="{{post.cover.url}}" alt="blog images" height="200" width="200">
+        <img class="rounded mx-auto d-block" src="{{post.cover.url}}" alt="blog images" style="max-width: 100%; height: auto; border-radius: 5%;">
+        <br><br>
         <p class="card-text text-dark">{{ object.content | safe }}</p>
       </div>
     </div>

@@ -36,7 +36,16 @@ INSTALLED_APPS = [
     # 'user',
 ]
 
+LANGUAGES = [
+    ('en', 'English'),
+    ('es', 'Español'),
+]
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
+
 MIDDLEWARE = [
+    'django.middleware.locale.LocaleMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
