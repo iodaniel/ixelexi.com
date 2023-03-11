@@ -15,8 +15,8 @@ SECRET_KEY = '!i9^v%6k5b@2q05+^v%%)io(ty!=2s&hjv3dd^^!91(@$as5%s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['ixelexi.com', 'www.ixelexi.com']
-
+#ALLOWED_HOSTS = ['ixelexi.com', 'www.ixelexi.com']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
