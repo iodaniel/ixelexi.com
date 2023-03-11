@@ -14,7 +14,7 @@ git clone https://github.com/iodaniel/ixelexi.com.git
 3. Crea un entorno virtual para el proyecto:
 
 
-python -m env env
+python -m venv venv
 
 4. Activa el entorno virtual:
 
